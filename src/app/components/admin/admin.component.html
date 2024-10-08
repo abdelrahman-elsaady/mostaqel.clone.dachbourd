@@ -1,0 +1,43 @@
+<section>
+
+  <ng-container *ngFor="let _ of [].constructor(259)">
+    <span class="square"></span>
+  </ng-container>
+
+
+  <div class="signin">
+    <div class="content">
+      <img src="./assets/login.png" style="width:100px">
+
+
+      <form class="form" [formGroup]="userLogin" (ngSubmit)="login()">
+        <ng-container *ngFor="let structue of schema">
+
+          <div class="inputBox">
+            <input type={{structue.type}} id={{structue.name}} required formControlName={{structue.name}} [ngClass]="{'is-invalid':(userLogin.get(structue.name)?.touched||userLogin.get(structue.name)?.dirty) && userLogin.get(structue.name)?.invalid}">
+            <i>{{structue.name}}</i>
+            <div class="invalid-feedback" style="height:10px">
+              <span *ngIf="userLogin.controls[structue.name]?.errors?.['required']">Please enter, This is required</span>
+              <span *ngIf="userLogin.controls[structue.name]?.errors?.['minlength']">Please Enter, Valid Minimum Length</span>
+              <span *ngIf="userLogin.controls[structue.name]?.errors?.['email']">Please Enter, Valid Email </span>
+
+            </div>
+          </div>
+
+
+
+        </ng-container>
+
+
+
+        <button class="btn btn-success my-1" type="submit" [hidden]="!userLogin.valid">Login</button>
+
+      </form>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- partial -->
+<script src="//taplink.cc/id:8851500/widget/" async></script>

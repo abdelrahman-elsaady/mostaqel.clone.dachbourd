@@ -1,0 +1,74 @@
+<section class="container">
+  <div class="row">
+    <div class="col-md-6 offset-3">
+      <div class="mt-4">
+        <h2 class="text-center">Add Admin Form</h2>
+
+        <div class="form-group">
+          <form [formGroup]="addAdminFormGroup" (submit)="addAdminHandler()">
+            <div class="col-12">
+              <label for="email">Email: <span class="text-danger">*</span></label>
+              <input formControlName="email" class="form-control shadow-none form-control-md" type="text" placeholder="Email" id="email" name="email" />
+              <p *ngIf="
+                  !addAdminFormGroup.get('email')?.valid &&
+                  addAdminFormGroup.get('email')?.touched
+                " class="text-danger mx-2 my-2">
+                this faild is required and must be strong email
+              </p>
+            </div>
+            <div class="col-12 my-4">
+              <label for="password">Password <span class="text-danger">*</span></label>
+              <input formControlName="password" class="form-control shadow-none form-control-md" type="password" placeholder="Password" id="password" name="password" />
+              <ul *ngIf="
+                  !addAdminFormGroup.get('password')?.valid &&
+                  addAdminFormGroup.get('password')?.touched
+                " class="text-danger mx-2 my-2">
+                <li>Minimum 6 characters</li>
+                <li>At least 1 upper case English letter</li>
+                <li>At least 1 lower case English letter</li>
+                <li>At least 1 letter</li>
+                <li>At least 1 special character</li>
+              </ul>
+            </div>
+            <div class="text-end mt-4">
+              <button [disabled]="!addAdminFormGroup.valid" class="btn btn-outline-primary" type="submit">
+                {{isLoading ? 'Loading ...' : 'Add Admin'}}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Admin Table -->
+
+<div class="card-body table-responsive p-0">
+  <table class="table table-hover text-nowrap">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Delete</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let admin of allAdmins">
+        <tr>
+          <td>{{admin._id}}</td>
+          <td>{{admin.email}}</td>
+          <td>
+            <button class="btn text-danger" (click)="deleteAdmin(admin._id)">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+
+    </tbody>
+  </table>
+</div>

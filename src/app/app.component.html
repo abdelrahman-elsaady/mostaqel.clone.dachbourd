@@ -1,0 +1,30 @@
+<ng-container *ngIf="showDash;else admin ">
+  <app-side-bar></app-side-bar>
+  <div class="content-wrapper" style="min-height:70vh">
+    <router-outlet></router-outlet>
+
+  </div>
+
+  <footer id="footer" class="main-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand fw-bold mb-1 fs-5" href="#nav">
+              Mostaqel Clone
+            </a>
+            <strong>Copyright &copy; 2024 <a href="https://www.iti.gov.eg/iti/home">ITI mearn stack</a>.</strong>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#0d6efd" type="ball-grid-pulse" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+  </ngx-spinner>
+</ng-container>
+<ng-template #admin>
+  <router-outlet></router-outlet>
+</ng-template>

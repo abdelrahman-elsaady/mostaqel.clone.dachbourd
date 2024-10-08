@@ -1,0 +1,79 @@
+
+
+<div class="container">
+  <div class="row">
+      <div class="col-12">
+          <h1 class="mt-4">Projects Statistics</h1>
+      </div>
+  </div>
+  <div class="row" *ngIf="stats">
+      <div class="col-lg-4 col-6">
+        <!-- small card -->
+        <div class="small-box bg-info">
+          <div class="inner">
+            <h3>{{stats.allProjectsCount}}</h3>
+
+            <p>All Projects</p>
+          </div>
+          <div class="icon">
+              <i class="fa-regular fa-newspaper"></i>
+          </div>
+          <a routerLink="/projects" class="small-box-footer">
+            More info <i class="fas fa-arrow-circle-right"></i>
+          </a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-4 col-6">
+        <!-- small card -->
+        <div class="small-box bg-success">
+          <div class="inner">
+            <h3>{{stats.closeProjectsCount}}</h3>
+
+            <p>Close Projects</p>
+          </div>
+          <div class="icon">
+              <i class="fa-solid fa-person"></i>
+          </div>
+          <a routerLink="/projects" class="small-box-footer">
+            More info <i class="fas fa-arrow-circle-right"></i>
+          </a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-4 col-6">
+        <!-- small card -->
+        <div class="small-box bg-warning">
+          <div class="inner">
+            <h3>{{stats.openProjectsCount}}</h3>
+
+            <p>Open Projects</p>
+          </div>
+          <div class="icon">
+              <i class="fa-regular fa-user"></i>
+          </div>
+          <a routerLink="/projects" class="small-box-footer">
+            More info <i class="fas fa-arrow-circle-right"></i>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-4 col-6">
+        <!-- small card -->
+        <div class="small-box bg-warning">
+          <div class="inner">
+            <h3>{{stats.pendingProjectsCount}}</h3>
+
+            <p>Pending Projects</p>
+          </div>
+          <div class="icon">
+              <i class="fa-regular fa-user"></i>
+          </div>
+          <a routerLink="/projects" class="small-box-footer">
+            More info <i class="fas fa-arrow-circle-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+</div>
+
+

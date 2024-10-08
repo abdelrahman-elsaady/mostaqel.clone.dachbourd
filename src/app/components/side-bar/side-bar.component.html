@@ -1,0 +1,59 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <!-- Brand Logo -->
+  <a routerLink="/" class="brand-link text-decoration-none px-5">
+
+    <img src="./assets/logo.png" alt="Mostaql Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <span class="brand-text f-w-light text-decoration-none">Mostaql</span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+             with font-awesome or any other icon font library -->
+
+        <li class="nav-item" *ngFor="let route of routes">
+          <a class=" nav-link">
+            <a routerLink="{{route.name}}" class=" nav-link">
+              <i class={{route.icon}}></i>
+              {{route.name}}
+            </a>
+            <p>
+              <i *ngIf="route.actions" class="fas fa-angle-left right" style="padding-top:10px"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview" *ngIf="route.actions" style="padding-left:10px">
+
+            <li class="nav-item" *ngFor="let action of route.actions">
+              <a routerLink="{{route.name}}/{{action}}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>{{action}}</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <hr>
+  <div class="user-panel mt-3 px-3 pb-3 mb-3 d-flex">
+    <div class="image">
+      <img src="./assets/admin.png" class="img-circle elevation-2" alt="User Image">
+    </div>
+    <div class="info text-white">
+      {{adminName}}
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center align-items-center w-100">
+    <button class="btn btn-outline-danger" (click)="logoutHandler()">
+      <i class="fa-solid fa-arrow-right-from-bracket"></i>
+     Logout
+    </button>
+  </div>
+  <!-- /.sidebar -->
+</aside>

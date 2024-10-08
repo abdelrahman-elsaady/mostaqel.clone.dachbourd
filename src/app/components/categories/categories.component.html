@@ -1,0 +1,63 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-12">
+      <h1 class="mt-4">Categories Control</h1>
+    </div>
+  </div>
+  <div class="row" *ngIf="categories">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Categories Details</h3>
+
+          <div class="card-tools border border-dark">
+
+            <button class="btn text-success" (click)="add()">
+              Add New Category
+            </button>
+           
+          </div>
+        </div>
+      </div>
+      <div class="container py-2 pagination-container">
+
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body table-responsive p-0">
+        <table class="table table-hover text-nowrap">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Modify</th>
+              <th>Delete</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let category of categories | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{category.title}}</td>
+              <td>
+                <button class="btn text-info" (click)="edit(category)">
+                  <i class="fa-solid fa-edit"></i>
+                </button>
+              </td>
+              <td>
+                <button class="btn text-danger" (click)="remove(category._id)">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+</div>

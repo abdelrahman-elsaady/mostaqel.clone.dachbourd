@@ -1,0 +1,50 @@
+<div class="p-5" class="text-center" style="border-radius:5px 2px">
+  <h3 mat-dialog-title>Add New Skill</h3>
+  <div mat-dialog-content>
+    <form #addForm="ngForm" class="text-center" style="width:100%">
+
+      <!-- <div class="form-group row mb-2">
+        <label for="name" class="col-md-4 col-form-label">Name</label>
+        <div class="col-md-8">
+          <input type="text" class="form-control" id="name" name="name" placeholder="skill Name (required)" required minlength="3" [(ngModel)]="newSkill.name" [ngModelOptions]="{standalone: true}" #nameInput="ngModel" [ngClass]="{'is-invalid':(nameInput.touched || nameInput.dirty) && nameInput.invalid}">
+
+          <span class="invalid-feedback">
+            <span *ngIf="nameInput.errors?.['required']">Plaese Enter skill Name</span>
+            <span *ngIf="nameInput.errors?.['minlength']">skill Name must be longer than 3 characters</span>
+
+          </span>
+        </div>
+      </div> -->
+      <div class="form-group row mb-2">
+        <label for="name" class="col-md-4 col-form-label">Name In Arabic</label>
+        <div class="col-md-8">
+          <input type="text" class="form-control" dir="rtl" id="name" name="name" placeholder="أدخل أسم المهارة باللغة العربية" required minlength="3" [(ngModel)]="newSkill.name" [ngModelOptions]="{standalone: true}" #name="ngModel" [ngClass]="{'is-invalid':(name.touched || name.dirty) && name.invalid}">
+
+          <span class="invalid-feedback">
+                <span *ngIf="name.errors?.['required']">Plaese Enter skill Name</span>
+                <span *ngIf="name.errors?.['minlength']">skill Name must be longer than 3 characters</span>
+
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label for="category" class="col-md-4 col-form-label">category</label>
+        <div class="col-md-8">
+          <select class="form-control text-center" [(ngModel)]="newSkill.category" #category="ngModel" [ngModelOptions]="{standalone: true}" required>
+            <optgroup label="Category">
+              <ng-container *ngFor="let category of allCategories">
+                <option value={{category._id}}>{{category.name}}</option>
+              </ng-container>
+            </optgroup>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div mat-dialog-actions style="display: contents;margin-bottom:10px">
+    <button class="btn btn-primary m-2" mat-button (click)="save()" [disabled]="name.invalid||category.invalid">Save</button>
+    <button class="btn btn-danger m-2" mat-button (click)="close()">Cancel</button>
+  </div>
+
+</div>

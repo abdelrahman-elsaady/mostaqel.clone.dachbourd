@@ -1,0 +1,29 @@
+
+<div class="container bg-white p-5">
+  <div class="h2"> {{project.title}}</div>
+  <p>{{project.description}}</p>
+
+  <div class="px-2">
+      <div class=" w-50">
+          <p>Client Name : {{project.clientId.userName}}</p>
+      </div>
+      <div class=" w-50">
+          <p>No of Offers:  {{project.numOffers}}</p>
+      </div>
+      <div class=" w-50">
+          <p>Category:  {{project.categoryId.title}}</p>
+      </div>
+      <div class=" w-50">
+          <p>Status : {{project.status}}</p>
+      </div>
+      <div class=" w-50">
+          <p>Duration : {{project.duration}}</p>
+      </div>
+      <div class=" w-50">
+          <p>Duration {{project.duration}}</p>
+      </div>
+
+      <button class="btn btn-danger mx-2" (click)="Deactive(project._id)">Deactivate project</button>
+      <button class="btn btn-success mx-2" (click)="active(project._id)">Activate project</button>
+  </div>
+</div>
