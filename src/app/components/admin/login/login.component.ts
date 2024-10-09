@@ -64,7 +64,7 @@ export class LoginComponent {
 
       (err) =>
         this.s.fire({
-          title: err.error,
+          title: "invalid email or password",
           icon: 'error',
         })
     );
