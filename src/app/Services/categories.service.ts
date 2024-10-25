@@ -11,7 +11,7 @@ export class CategoriesService {
   constructor(private http: HttpClient) {}
 
   getCategories(): Observable<any> {
-    return this.http.get<any[]>(`${environment.baseAPIURL}/category`);
+    return this.http.get<any[]>(`${environment.baseAPIURL}/categories`);
   }
   getCategoriesStatistics(): Observable<any> {
     return this.http.get<any[]>(
@@ -19,20 +19,20 @@ export class CategoriesService {
     );
   }
   deleteCategory(id: any): Observable<any> {
-    return this.http.delete<any[]>(`${environment.baseAPIURL}/category/${id}`);
+    return this.http.delete<any[]>(`${environment.baseAPIURL}/categories/${id}`);
   }
   updateCategory(newCategory: any): Observable<any> {
     return this.http.patch<any[]>(
-      `${environment.baseAPIURL}/category/${newCategory._id}`,
+      `${environment.baseAPIURL}/categories/${newCategory._id}`,
       {
-        title: newCategory.title,
-        titleAr: newCategory.titleAr,
+        name: newCategory.name,
+        // titleAr: newCategory.titleAr,
       }
     );
   }
   addNewCategory(newCategory: any): Observable<any> {
     return this.http.post<any[]>(
-      `${environment.baseAPIURL}/category`,
+      `${environment.baseAPIURL}/categories`,
       newCategory
     );
   }

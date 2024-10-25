@@ -1,4 +1,4 @@
-<!-- <div class="container">
+<div class="container">
 
   <div class="row">
     <div class="col-12">
@@ -37,11 +37,12 @@
                 <th>Title</th>
                 <th>Status</th>
                 <th>Description</th>
+                <th>Proposals</th>
                 <th>Activation</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let project of data.projects | paginate: { itemsPerPage: 5, currentPage: p }">
+              <tr *ngFor="let project of data | paginate: { itemsPerPage: 5, currentPage: p }">
 
                   <td>
                     <a [routerLink]="['/projects',project._id]"  >
@@ -55,13 +56,14 @@
                   </td>
 
                   <td>{{ project.description.substring(0, 40) }}</td>
+                  <td>{{project.proposals.length}}</td>
                   <td>
                     <div class="d-flex">
-
-                      <button class="btn" [ngClass]="project.status =='close' ?  'text-danger' : 'text-success'  "
-                        (click)="deactiveProject(project._id, (project.status == 'open' ) ? 'close' : 'open'   )">
-                        <i class="fa-solid fa-trash"></i> {{ (project.status == 'open' ) ? 'deactive' : 'active'}}
-                      </button>
+                      
+                      <button class="btn" [ngClass]="project.status =='close' ?  'text-danger' : 'text-success'"
+                      (click)="deactiveProject(project._id, project.status)">
+                      <i class="fa-solid fa-trash"></i> {{ project.status == 'open' ? 'deactive' : 'active' }}
+                    </button>
 
                     </div>
                   </td>
@@ -73,4 +75,4 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>

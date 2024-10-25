@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UsersService } from '../../../Services/users.service';
+import { forkJoin } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-freelancers',
@@ -11,66 +13,50 @@ import { UsersService } from '../../../Services/users.service';
   styleUrl: './freelancers.component.scss'
 })
 export class FreelancersComponent implements OnInit {
-  search: string = '';
-  freelancers: {
-    _id: string;
-    email: string;
-    isVerify: string;
-    firstName: string;
-    lastName: string;
-    avatar?: string;
-    isActive: string;
-  }[] = [];
-
-  filteredFreelancer: {
-    _id: string;
-    email: string;
-    isVerify: string;
-    firstName: string;
-    lastName: string;
-    avatar?: string;
-    isActive: string;
-  }[] = [];
+  freelancers: any[] = [];
+  filteredFreelancers: any[] = [];
 
   constructor(private usersService: UsersService) {}
 
   ngOnInit(): void {
     this.loadData();
   }
-  loadData(): void {
-    this.usersService.getAllFreelancers().subscribe((data) => {
-      this.freelancers = data.freelancers;
-      this.filteredFreelancer = data.freelancers;
-    });
-  }
 
-  onDeactiveFreelancer(id: string) {
-    const data = {
-      freelancerId: id,
-    };
-    this.usersService.deactivatedFreelancer(data);
-    setTimeout(() => {
-      this.loadData();
-    }, 100);
-  }
-
-  onVerifyFreelancer(id: string) {
-    const data = {
-      freelancerId: id,
-    };
-    this.usersService.verifyFreelancer(data);
-    setTimeout(() => {
-      this.loadData();
-    }, 100);
+  loadData() {
+    this.usersService.getAllFreelancers().pipe(
+      switchMap(response => {
+        const freelancers = response.freelancers;
+        console.log(freelancers);
+        const projectRequests = freelancers.map(freelancer => 
+          this.usersService.getProjectsByClient(freelancer._id).pipe(
+            map(projects => ({
+              ...freelancer,
+              projectsNumber: projects.length,
+              proposalsNumber: freelancer.proposals.length
+            }))
+          )
+        );
+        return forkJoin(projectRequests);
+      })
+    ).subscribe(
+      (updatedFreelancers) => {
+        this.freelancers = updatedFreelancers;
+        this.filteredFreelancers = updatedFreelancers;
+      },
+      (error) => {
+        console.error('Error fetching freelancers:', error);
+      }
+    );
   }
 
   filterFreelancer(text: string) {
     if (text) {
-      this.filteredFreelancer = this.freelancers.filter((acc) =>
-        acc.email.includes(text.toLocaleLowerCase())
+      this.filteredFreelancers = this.freelancers.filter((freelancer) =>
+        freelancer.email.toLowerCase().includes(text.toLowerCase()) ||
+        freelancer.firstName.toLowerCase().includes(text.toLowerCase())
       );
     } else {
-      this.filteredFreelancer = this.freelancers;
+      this.filteredFreelancers = this.freelancers;
     }
   }
 }

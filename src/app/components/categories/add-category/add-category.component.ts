@@ -22,9 +22,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 export class AddCategoryComponent implements OnInit {
   allCategories: any[] = [];
   newCategory: {
-    title: string;
-    titleAr: string;
-  } = { title: '', titleAr: '' };
+    name: string;
+    // titleAr: string;
+  } = { name: '' };
   constructor(
     public dialogRef: MatDialogRef<CategoriesComponent>,
     private categoryService: CategoriesService

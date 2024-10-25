@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UsersService } from '../../../Services/users.service';
-
+import { map, switchMap } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-clients',
   standalone: true,
@@ -11,64 +12,46 @@ import { UsersService } from '../../../Services/users.service';
   styleUrl: './clients.component.scss'
 })
 export class ClientsComponent implements OnInit {
-  clients: {
-    _id: string;
-    email: string;
-    isVerified: string;
-    firstName: string;
-    lastName: string;
-    avatar?: string;
-    isActive: string;
-  }[] = [];
+  clients: any[] = [];
+  filteredClients: any[] = [];
 
-  filteredClients: {
-    _id: string;
-    email: string;
-    isVerified: string;
-    firstName: string;
-    lastName: string;
-    avatar?: string;
-    isActive: string;
-  }[] = [];
-  constructor(private serveiceUsers: UsersService) {}
+  constructor(private usersService: UsersService) {}
 
   ngOnInit(): void {
     this.loadData();
   }
+
   loadData() {
-    this.serveiceUsers.getAllClients().subscribe((data) => {
-      this.filteredClients = data.clients;
-      this.clients = data.clients;
-      console.log(data)
-    });
-  }
-
-  deactiveClient(id: string) {
-    const data = {
-      clientId: id,
-    };
-
-    this.serveiceUsers.deactivatedClient(data);
-    setTimeout(() => {
-      this.loadData();
-    }, 100);
-  }
-
-  verifyClient(id: string) {
-    const data = {
-      clientId: id,
-    };
-
-    this.serveiceUsers.verifyClient(data);
-    setTimeout(() => {
-      this.loadData();
-    }, 100);
+    this.usersService.getAllClients().pipe(
+      switchMap(response => {
+        const clients = response.clients;
+        const projectRequests = clients.map(client => 
+          this.usersService.getProjectsByClient(client._id).pipe(
+            map(projectResponse => ({
+              ...client,
+              projectsNumber: projectResponse.length,
+              proposalsNumber: client.proposals.length
+            }))
+          )
+        );
+        return forkJoin(projectRequests);
+      })
+    ).subscribe(
+      (updatedClients) => {
+        this.clients = updatedClients;
+        this.filteredClients = updatedClients;
+      },
+      (error) => {
+        console.error('Error fetching clients:', error);
+      }
+    );
   }
 
   filterClient(text: string) {
     if (text) {
-      this.filteredClients = this.clients.filter((acc) =>
-        acc.email.includes(text)
+      this.filteredClients = this.clients.filter((client) =>
+        client.email.toLowerCase().includes(text.toLowerCase()) ||
+        client.firstName.toLowerCase().includes(text.toLowerCase())
       );
     } else {
       this.filteredClients = this.clients;

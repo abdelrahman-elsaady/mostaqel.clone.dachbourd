@@ -17,7 +17,13 @@ export class GetProjectsComponent  implements  OnInit {
 
   ngOnInit() {
 
-    this.ProService.getAllProjects().subscribe(data  =>  { this.data = data});
+    this.ProService.getAllProjects().subscribe(data  =>  {
+       this.data = data; 
+       console.log(data)
+       console.log(this.data)
+      });
+
+// console.log(this.data);
 
   }
 
@@ -27,7 +33,7 @@ export class GetProjectsComponent  implements  OnInit {
 
   filterProjects(value:any){
     if(value){
-      this.data.projects = this.data.projects.filter( (p : any ) => p.title.toLowerCase().includes(value))
+      this.data = this.data.filter( (p : any ) => p.title.toLowerCase().includes(value))
 
     }else{
 
@@ -35,16 +41,20 @@ export class GetProjectsComponent  implements  OnInit {
     }
   }
 
-  deactiveProject( id:string, status: string){
-    this.ProService.deactivateProject({id, status}).subscribe((d: any) => {
-      d.deactivatedProject.status = (this.data.projects.find((pr:any) => pr._id == d.deactivatedProject._id)).status
-      console.log((this.data.projects.find((pr:any) => pr._id == d.deactivatedProject._id)).status)
+  deactiveProject(id: string, currentStatus: string) {
+    const newStatus = currentStatus === 'open' ? 'close' : 'open';
+    console.log(newStatus)
+    this.ProService.deactivateProject(id, newStatus).subscribe((updatedProject: any) => {
+      const projectIndex = this.data.findIndex((pr: any) => pr._id === updatedProject._id);
+      if (projectIndex !== -1) {
+        this.data[projectIndex].status = updatedProject.status;
+      }
     });
 
 
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/projects/Get'])
-    })
+    // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    //   this.router.navigate(['/projects/Get'])
+    // })
 
   }
 

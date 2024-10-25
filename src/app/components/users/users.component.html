@@ -1,1 +1,86 @@
-<p>users works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mt-4">Users Statistics</h1>
+        </div>
+    </div>
+    <div class="row" *ngIf="userStatistics">
+        <div class="col-lg-4 col-6">
+          <!-- Total Users card -->
+          <div class="small-box bg-primary">
+            <div class="inner">
+              <h3>{{userStatistics.totalUsers}}</h3>
+              <p>Total Users</p>
+            </div>
+            <div class="icon">
+                <i class="fa-solid fa-users"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- <div class="col-lg-4 col-6">
+
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3>{{userStatistics.projectsCount}}</h3>
+              <p>Projects</p>
+            </div>
+            <div class="icon">
+                <i class="fa-regular fa-newspaper"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div> -->
+        <div class="col-lg-4 col-6">
+          <!-- Freelancers card -->
+          <div class="small-box bg-success">
+            <div class="inner">
+              <h3>{{userStatistics.freelancerCount}}</h3>
+              <p> Total Freelancers</p>
+            </div>
+            <div class="icon">
+                <i class="fa-solid fa-person"></i>
+            </div>
+            <a routerLink="/users/freelancers" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-4 col-6">
+          <!-- Clients card -->
+          <div class="small-box bg-warning">
+            <div class="inner">
+              <h3>{{userStatistics.clientCount}}</h3>
+              <p> Total Clients</p>
+            </div>
+            <div class="icon">
+                <i class="fa-regular fa-user"></i> 
+            </div>
+            <a routerLink="/users/clients" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+
+        
+        <div class="col-lg-4 col-6">
+          <!-- Offers card -->
+          <div class="small-box bg-danger">
+            <div class="inner">
+              <h3>{{userStatistics.offersCount}}</h3>
+              <p> total proposals</p>
+            </div>
+            <div class="icon">
+                <i class="fa-solid fa-handshake"></i> 
+            </div>
+            <a routerLink="/offers" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+    </div>
+</div>

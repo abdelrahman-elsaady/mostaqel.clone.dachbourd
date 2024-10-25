@@ -1,0 +1,81 @@
+<div class="container mt-4">
+    <h1 class="mb-4">Admin Dashboard</h1>
+  
+    <div class="row">
+      <div class="col-md-3 mb-4">
+        <div class="card bg-primary text-white">
+          <div class="card-body">
+            <h5 class="card-title">Total Users</h5>
+            <p class="card-text display-4">{{ statistics.totalUsers }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="card bg-success text-white">
+          <div class="card-body">
+            <h5 class="card-title">Projects</h5>
+            <p class="card-text display-4">{{ statistics.projects }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="card bg-info text-white">
+          <div class="card-body">
+            <h5 class="card-title">Proposals</h5>
+            <p class="card-text display-4">{{ statistics.proposals }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="card bg-warning text-white">
+          <div class="card-body">
+            <h5 class="card-title">Skills</h5>
+            <p class="card-text display-4">{{ statistics.skills }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="row mt-4">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">User Distribution</h5>
+            <canvas #userChart></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Projects and Proposals</h5>
+            <canvas #projectProposalChart></canvas>
+          </div>
+        </div>
+      </div>
+    <!-- </div> -->
+
+
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Other Statistics</h5>
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Freelancers
+                <span class="badge bg-primary rounded-pill">{{ statistics.freelancers }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Clients
+                <span class="badge bg-primary rounded-pill">{{ statistics.clients }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Categories
+                <span class="badge bg-primary rounded-pill">{{ statistics.categories }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

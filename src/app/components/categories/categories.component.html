@@ -1,4 +1,4 @@
-<!-- <div class="container">
+<div class="container">
 
   <div class="row">
     <div class="col-12">
@@ -39,7 +39,7 @@
           <tbody>
             <tr *ngFor="let category of categories | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
               <td>{{i+1}}</td>
-              <td>{{category.title}}</td>
+              <td>{{category.name}}</td>
               <td>
                 <button class="btn text-info" (click)="edit(category)">
                   <i class="fa-solid fa-edit"></i>
@@ -57,4 +57,4 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>

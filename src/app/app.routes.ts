@@ -11,15 +11,18 @@ import { GetProjectsComponent } from './components/projects/get-projects/get-pro
 import { SingleProjectComponent } from './components/projects/single-project/single-project.component';
 import { SkillsComponent } from './components/skills/skills.component';
 import { EditSkillComponent } from './components/skills/edit-skill/edit-skill.component';
+import { ProjectsComponent } from './components/projects/projects.component';
+import { HomeComponent } from './components/home/home.component';
 
 export const routes: Routes = [
 
-  {path:'', component: LoginComponent},
-  {path:'users', component: ClientsComponent ,canActivate: [authMiddlewareGuard]},
+  {path:'', component:  HomeComponent,canActivate: [authMiddlewareGuard]},
+  {path:'login', component: LoginComponent},
+  {path:'users', component: UsersComponent ,canActivate: [authMiddlewareGuard]},
   {path:'users/clients', component: ClientsComponent ,canActivate: [authMiddlewareGuard]},
   {path:'users/freelancers', component: FreelancersComponent ,canActivate: [authMiddlewareGuard]},
   {path:'projects/allprojects', component: GetProjectsComponent ,canActivate: [authMiddlewareGuard]},
-  {path:'projects', component: GetProjectsComponent ,canActivate: [authMiddlewareGuard]},
+  {path:'projects', component: ProjectsComponent ,canActivate: [authMiddlewareGuard]},
   {path:'projects/:id', component: SingleProjectComponent ,canActivate: [authMiddlewareGuard]},
   {path:'categories', component: CategoriesComponent ,canActivate: [authMiddlewareGuard]},
   {path:'skills', component: SkillsComponent ,canActivate: [authMiddlewareGuard]},

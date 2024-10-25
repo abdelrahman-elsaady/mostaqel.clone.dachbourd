@@ -22,7 +22,7 @@ export const authMiddlewareGuard: CanActivateFn = (route, state) => {
       title: 'You Must Login First',
       icon: 'error',
     }).fire();
-    router.navigate(['/admin/login']);
+    router.navigate(['/login']);
     return false;
   }
 

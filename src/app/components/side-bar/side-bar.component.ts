@@ -18,12 +18,12 @@ export class SideBarComponent implements OnInit {
     {
       name: 'users',
       icon: 'fa-solid fa-users',
-      // actions: ['freelancers', 'clients'],
+      actions: ['freelancers', 'clients'],
     },
     {
       name: 'projects',
       icon: 'fas fa-edit',
-      // actions: ['allprojects', 'Statistics'],
+      actions: ['allprojects'],
     },
     {
       name: 'categories',

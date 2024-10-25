@@ -4,6 +4,39 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 
+
+
+export interface UsersResponse {
+  users: any[]; 
+}
+
+interface Client {
+  _id: string;
+  firstName: string;
+  email: string;
+  proposals: any[];
+  createdAt: string;
+  role: string;
+}
+
+interface ClientsResponse {
+  clients: Client[];
+}
+
+interface Freelancer {
+  _id: string;
+  firstName: string;
+  email: string;
+  proposals: any[];
+  createdAt: string;
+  role: string;
+}
+
+interface FreelancersResponse {
+  freelancers: Freelancer[];
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,14 +44,27 @@ export class UsersService {
   message:string = ''
   constructor(private http:HttpClient) { }
 
+  getAllUsers(): Observable<UsersResponse> {
+    return this.http.get<UsersResponse>(`${environment.baseAPIURL}/users`);
+  }
 
   getAllUsersStatistics() :Observable<usersStatisticsType>{
     return this.http.get<usersStatisticsType>(`${environment.baseAPIURL}/admin/statistics`)
   }
 
-  getAllFreelancers():Observable<freelancerType>{
-    return this.http.get<freelancerType>(`${environment.baseAPIURL}/admin/freelancers`)
+  getAllClients(): Observable<ClientsResponse> {
+    return this.http.get<ClientsResponse>(`${environment.baseAPIURL}/users/role?role=client`);
   }
+
+  getProjectsByClient(clientId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.baseAPIURL}/projects/client/${clientId}`);
+  }
+
+  getAllFreelancers(): Observable<FreelancersResponse> {
+    return this.http.get<FreelancersResponse>(`${environment.baseAPIURL}/users/role?role=freelancer`);
+  }
+
+
 
   deactivatedFreelancer(data:{freelancerId:string}){
     return this.http.patch<{message:string}>(`${environment.baseAPIURL}/admin/deactive-freelancer`,JSON.stringify(data),{
@@ -41,13 +87,15 @@ export class UsersService {
     })
   }
 
-
+  getAllProposals(): Observable<any> {
+    return this.http.get(`${environment.baseAPIURL}/proposals`);
+  }
   ///Clients
 
 
-  getAllClients():Observable<clientsType>{
-    return this.http.get<clientsType>(`${environment.baseAPIURL}/users`)
-  }
+  // getAllClients():Observable<clientsType>{
+  //   return this.http.get<clientsType>(`${environment.baseAPIURL}/users`)
+  // }
 
   deactivatedClient(data:{clientId:string}){
     return this.http.patch<{message:string}>(`${environment.baseAPIURL}/admin/deactive-client`,JSON.stringify(data),{

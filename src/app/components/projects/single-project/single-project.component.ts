@@ -30,17 +30,17 @@ export class SingleProjectComponent {
     status?: any;
   } = {}
 
-  Deactive(id: any){
-    this.projectService.deactivateProject({id, status: 'close'}).subscribe((d:any) => {
-      this.project.status = d.deactivatedProject.status
-    })
-  }
+  // Deactive(id: any){
+  //   this.projectService.deactivateProject({id, status: 'close'}).subscribe((d:any) => {
+  //     this.project.status = d.deactivatedProject.status
+  //   })
+  // }
 
-  active(id: any){
-    this.projectService.deactivateProject({id, status: 'open'}).subscribe((d:any) => {
-      this.project.status = d.deactivatedProject.status
-    })
+  // active(id: any){
+  //   this.projectService.deactivateProject({id, status: 'open'}).subscribe((d:any) => {
+  //     this.project.status = d.deactivatedProject.status
+  //   })
 
-  }
+  // }
 }
 

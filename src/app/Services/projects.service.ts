@@ -11,19 +11,22 @@ export class ProjectsService {
 
   projects: {} = {};
   getAllProjects() {
-    return this.http.get(`${environment.baseAPIURL}/admin/projects`);
+    return this.http.get(`${environment.baseAPIURL}/projects`);
   }
 
   getProjectById(id: string) {
-    return this.http.get(`${environment.baseAPIURL}/admin/projects/${id}`);
+    return this.http.get(`${environment.baseAPIURL}/projects/${id}`);
   }
   getProjectsStats() {
-    return this.http.get(`${environment.baseAPIURL}/admin/projects-stats`);
+    return this.http.get(`${environment.baseAPIURL}/projects-stats`);
   }
-  deactivateProject(data: { id: string; status: string }) {
+
+
+  
+  deactivateProject(id: string, status: string) {
     return this.http.patch(
-      `${environment.baseAPIURL}/admin/deactivate-project`,
-      data
+      `${environment.baseAPIURL}/projects/${id}`,
+      { status }
     );
   }
 }
