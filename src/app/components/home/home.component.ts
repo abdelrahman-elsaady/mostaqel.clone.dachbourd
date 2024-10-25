@@ -5,11 +5,11 @@ import { ProjectsService } from '../../Services/projects.service';
 import { SkillsService } from '../../Services/skills.service';
 import { CategoriesService } from '../../Services/categories.service';
 import { Chart, ChartConfiguration, ChartData } from 'chart.js/auto';
-
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
