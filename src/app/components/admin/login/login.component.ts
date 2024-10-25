@@ -58,7 +58,7 @@ export class LoginComponent {
         });
         this.authService.setAuthenticated(data.token);
         setTimeout(() => {
-          this.router.navigate(['/users']);
+          this.router.navigate(['/']);
         }, 1000);
       },
 

@@ -19,7 +19,7 @@ export class AddAdminService {
     };
 
     return this.http.post<any>(
-      `${environment.baseAPIURL}/admin/auth/register`,
+      `${environment.baseAPIURL}/admins/register`,
       JSON.stringify(adminData),
       {
         headers: {

@@ -25,19 +25,16 @@ export class AddAdminComponent implements OnInit, OnDestroy {
   constructor(private addAdminService: AddAdminService) {}
 
   ngOnInit() {
-    const emailRegx =
-      /^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$/;
-    const passwordRegx =
-      /^\S*(?=\S{6,})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*[!@#$%^&*? ])\S*$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
     this.addAdminFormGroup = new FormGroup({
       email: new FormControl('', [
         Validators.required,
-        Validators.email,
-        Validators.pattern(emailRegx),
+        Validators.pattern(emailRegex),
       ]),
       password: new FormControl('', [
         Validators.required,
-        Validators.pattern(passwordRegx),
+        Validators.minLength(8),
       ]),
     });
 
@@ -49,63 +46,41 @@ export class AddAdminComponent implements OnInit, OnDestroy {
 
   addAdminHandler() {
     if (!this.addAdminFormGroup.valid) {
-      Swal.mixin({
+      Swal.fire({
         toast: true,
-        title: 'invalid data',
+        title: 'Invalid data',
         icon: 'error',
         timer: 2000,
         timerProgressBar: true,
         showConfirmButton: false,
         position: 'top-right',
-      }).fire();
+      });
       return;
     }
-
+  
     this.addAdminService
       .addAdminToDB(
         this.addAdminFormGroup.value.email,
         this.addAdminFormGroup.value.password
       )
-      .subscribe(
-        (data) => {
-          if (data.message) {
-            Swal.mixin({
-              toast: true,
-              showConfirmButton: false,
-              icon: 'success',
-              title: data.message,
-              timer: 2000,
-              timerProgressBar: true,
-              position: 'top-right',
-            }).fire();
-            this.loadAllData();
-          }
+      .subscribe({
+        next: (data) => {
+          Swal.fire({
+            title: 'Admin Added Successfully',
+            icon: 'success',
+          });
+          this.addAdminFormGroup.reset();
+          this.loadAllData(); // Refresh the admin list
         },
-        (error) => {
-          if (error.error.error.includes('duplicate key')) {
-            Swal.mixin({
-              toast: true,
-              position: 'top-right',
-              showConfirmButton: false,
-              timer: 3000,
-              timerProgressBar: true,
-              text: 'Admin is Already Exsist',
-              icon: 'error',
-            }).fire();
-          } else {
-            Swal.mixin({
-              toast: true,
-              position: 'top-right',
-              showConfirmButton: false,
-              timer: 3000,
-              timerProgressBar: true,
-              text: error.error.error,
-              icon: 'error',
-            }).fire();
-          }
+        error: (error) => {
+          console.error('Error adding admin:', error);
+          Swal.fire({
+            title: 'Error Adding Admin',
+            text: error.error?.error || 'An unexpected error occurred',
+            icon: 'error',
+          });
         }
-      );
-    this.addAdminFormGroup.reset();
+      });
   }
 
   ngOnDestroy(): void {

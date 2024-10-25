@@ -13,6 +13,7 @@ import { SkillsComponent } from './components/skills/skills.component';
 import { EditSkillComponent } from './components/skills/edit-skill/edit-skill.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { HomeComponent } from './components/home/home.component';
+import { AddAdminComponent } from './components/add-admin/add-admin.component';
 
 export const routes: Routes = [
 
@@ -27,6 +28,7 @@ export const routes: Routes = [
   {path:'categories', component: CategoriesComponent ,canActivate: [authMiddlewareGuard]},
   {path:'skills', component: SkillsComponent ,canActivate: [authMiddlewareGuard]},
   {path:'skills/update', component: EditSkillComponent },
+  {path:'add-admin', component: AddAdminComponent ,canActivate: [authMiddlewareGuard]},
 
   // {path:'home', component: HeaderComponent },
   // {path:'Products', component: ProductParentsComponent,canActivate: [userGuard]},
