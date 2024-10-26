@@ -1,16 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-
+import { Router, RouterLink, RouterModule } from '@angular/router';
+ 
 @Component({
   selector: 'app-side-bar',
   standalone: true,
-  imports: [FormsModule,CommonModule,RouterLink],
+  imports: [FormsModule,CommonModule,RouterLink,RouterModule],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss'
 })
 export class SideBarComponent implements OnInit {
+  @Output() close = new EventEmitter<void>();
+
+  closeSidebar() {
+    this.close.emit();
+  }
   adminName!:string
 
   constructor(private route:Router){}
@@ -51,6 +56,6 @@ export class SideBarComponent implements OnInit {
 
   logoutHandler(){
     sessionStorage.removeItem('token')
-    this.route.navigate(['/'])
+    this.route.navigate(['/login'])
   }
 }

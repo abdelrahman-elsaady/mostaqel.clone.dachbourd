@@ -20,8 +20,16 @@ import { AuthService } from './Services/auth.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+
+  showDash = true; // or however you determine this
+  isSidebarOpen = false;
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
   title = 'admin';
-  showDash: boolean = false;
+  // showDash: boolean = false;
   constructor(
     private router: Router,
     private spinnerService: NgxSpinnerService,

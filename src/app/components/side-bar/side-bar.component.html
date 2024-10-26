@@ -1,59 +1,45 @@
-<aside class="main-sidebar sidebar-dark-primary ">
-  <!-- Brand Logo -->
-  <a routerLink="/" class="brand-link text-decoration-none px-5">
-
-    <img src="./assets/logo.png" alt="Mostaql Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text f-w-light text-decoration-none">Mostaql</span>
+<div class="sidebar-wrapper h-100 d-flex flex-column">
+  <button class="btn btn-close position-absolute top-0 end-0 m-2 d-lg-none" (click)="closeSidebar()"></button>
+  <a routerLink="/" class="brand-link text-decoration-none px-3 d-flex align-items-center mb-3">
+    <img src="./assets/logo.png" alt="Mostaql Logo" class="brand-image img-circle elevation-3" style="opacity: .8; width: 40px; height: 40px;">
+    <span class="brand-text fw-light text-decoration-none ms-2">Mostaql</span>
   </a>
 
-  <!-- Sidebar -->
-  <div class="sidebar">
-
-    <!-- Sidebar Menu -->
-    <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <!-- Add icons to the links using the .nav-icon class
-             with font-awesome or any other icon font library -->
-
-        <li class="nav-item" *ngFor="let route of routes">
-          <a class=" nav-link">
-            <a routerLink="{{route.name}}" class=" nav-link">
-              <i class={{route.icon}}></i>
-              {{route.name}}
+  <nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <li class="nav-item" *ngFor="let route of routes">
+        <a class="nav-link" [routerLink]="route.name" [routerLinkActive]="'active'">
+          <i [class]="route.icon"></i>
+          <span class="ms-2">{{route.name}}</span>
+          <i *ngIf="route.actions" class="fas fa-angle-left right ms-auto"></i>
+        </a>
+        <ul class="nav nav-treeview" *ngIf="route.actions" style="padding-left:20px">
+          <li class="nav-item" *ngFor="let action of route.actions">
+            <a [routerLink]="[route.name, action]" class="nav-link" routerLinkActive="active">
+              <i class="far fa-circle nav-icon"></i>
+              <span class="ms-2">{{action}}</span>
             </a>
-            <p>
-              <i *ngIf="route.actions" class="fas fa-angle-left right" style="padding-top:10px"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview" *ngIf="route.actions" style="padding-left:10px">
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
 
-            <li class="nav-item" *ngFor="let action of route.actions">
-              <a routerLink="{{route.name}}/{{action}}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>{{action}}</p>
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-    <!-- /.sidebar-menu -->
-  </div>
   <hr>
+
   <div class="user-panel mt-3 px-3 pb-3 mb-3 d-flex">
     <div class="image">
-      <img src="./assets/admin.png" class="img-circle elevation-2" alt="User Image">
+      <img src="./assets/admin.png" class="img-circle elevation-2" alt="User Image" style="width: 40px; height: 40px;">
     </div>
-    <div class="info text-white">
+    <div class="info text-white ms-2 d-flex align-items-center">
       {{adminName}}
     </div>
   </div>
 
-  <div class="d-flex justify-content-center align-items-center w-100">
+  <div class="d-flex justify-content-center align-items-center w-100 mb-3">
     <button class="btn btn-outline-danger" (click)="logoutHandler()">
-      <i class="fa-solid fa-arrow-right-from-bracket"></i>
-     Logout
+      <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>
+      Logout
     </button>
   </div>
-  <!-- /.sidebar -->
-</aside>
+</div>

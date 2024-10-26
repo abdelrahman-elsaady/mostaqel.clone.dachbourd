@@ -1,14 +1,21 @@
-<ng-container *ngIf="showDash;else admin ">
-  <app-side-bar class=" d-none d-lg-block"></app-side-bar>
+<ng-container *ngIf="showDash; else admin">
+  <!-- Toggle button for all screen sizes -->
+  <button class="btn btn-primary position-fixed top-0 start-0 mt-2 ms-2 z-3" type="button" (click)="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+  </button>
 
-
+  <!-- Sidebar -->
+  <app-side-bar [ngClass]="{'show-sidebar': isSidebarOpen}" class="sidebar-container" (close)="toggleSidebar()"></app-side-bar>
+  <div class="content-wrapper" [ngClass]="{'content-shift': isSidebarOpen}" style="min-height:70vh">
+    <router-outlet></router-outlet>
+  </div>
   
-  <div class="content-wrapper" style="min-height:70vh">
+  <!-- <div class="content-wrapper" style="min-height:70vh">
     <router-outlet></router-outlet>
 
 
     
-  </div>
+  </div> -->
 
   <footer id="footer" class="main-footer">
     <div class="container">
