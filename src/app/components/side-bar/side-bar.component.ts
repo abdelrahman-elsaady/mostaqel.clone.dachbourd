@@ -41,6 +41,11 @@ export class SideBarComponent implements OnInit {
       // actions: ['Get', 'Statistics'],
     },
     {
+      name: 'balance',
+      icon: 'fas fa-money-bill',
+      // actions: ['Get', 'Statistics'],
+    },
+    {
       name: 'add-admin',
       icon: 'fa-solid fa-user-plus',
     },

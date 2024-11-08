@@ -39,3 +39,32 @@
     margin-left: 0;
   }
 }
+
+.nav-link {
+  &.active {
+    background-color: #e3f2fd !important;
+    color: #1976d2 !important;
+    
+    i {
+      color: #1976d2 !important;
+    }
+  }
+
+  &:hover {
+    background-color: #f5f9ff !important;
+    color: #1976d2 !important;
+    
+    i {
+      color: #1976d2 !important;
+    }
+  }
+}
+
+.nav-treeview {
+  .nav-link {
+    &.active {
+      background-color: #e3f2fd !important;
+      color: #1976d2 !important;
+    }
+  }
+}

@@ -14,6 +14,7 @@ import { forkJoin } from 'rxjs';
 export class ClientsComponent implements OnInit {
   clients: any[] = [];
   filteredClients: any[] = [];
+  isLoading = false;
 
   constructor(private usersService: UsersService) {}
 
@@ -22,6 +23,7 @@ export class ClientsComponent implements OnInit {
   }
 
   loadData() {
+    this.isLoading = true;
     this.usersService.getAllClients().pipe(
       switchMap(response => {
         const clients = response.clients;
@@ -36,15 +38,17 @@ export class ClientsComponent implements OnInit {
         );
         return forkJoin(projectRequests);
       })
-    ).subscribe(
-      (updatedClients) => {
+    ).subscribe({
+      next: (updatedClients) => {
         this.clients = updatedClients;
         this.filteredClients = updatedClients;
+        this.isLoading = false;
       },
-      (error) => {
+      error: (error) => {
         console.error('Error fetching clients:', error);
+        this.isLoading = false;
       }
-    );
+    });
   }
 
   filterClient(text: string) {

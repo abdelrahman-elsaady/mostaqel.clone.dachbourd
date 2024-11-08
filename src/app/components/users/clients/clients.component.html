@@ -1,10 +1,14 @@
+<div class="spinner-overlay" *ngIf="isLoading">
+  <div class="spinner"></div>
+</div>
+
 <div class="container">
   <div class="row">
     <div class="col-12">
       <h1 class="mt-4">Clients Control</h1>
     </div>
   </div>
-  <div class="row" *ngIf="clients.length > 0">
+  <div class="row" *ngIf="!isLoading && clients.length > 0">
     <div class="col-12">
       <div class="card">
         <div class="card-header">
@@ -42,6 +46,14 @@
             </tbody>
           </table>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!isLoading && clients.length === 0">
+    <div class="col-12">
+      <div class="alert alert-info">
+        No clients found.
       </div>
     </div>
   </div>

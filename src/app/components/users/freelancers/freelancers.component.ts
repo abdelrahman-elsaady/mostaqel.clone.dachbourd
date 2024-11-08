@@ -15,6 +15,7 @@ import { map, switchMap } from 'rxjs/operators';
 export class FreelancersComponent implements OnInit {
   freelancers: any[] = [];
   filteredFreelancers: any[] = [];
+  isLoading = false;
 
   constructor(private usersService: UsersService) {}
 
@@ -23,6 +24,7 @@ export class FreelancersComponent implements OnInit {
   }
 
   loadData() {
+    this.isLoading = true;
     this.usersService.getAllFreelancers().pipe(
       switchMap(response => {
         const freelancers = response.freelancers;
@@ -38,15 +40,17 @@ export class FreelancersComponent implements OnInit {
         );
         return forkJoin(projectRequests);
       })
-    ).subscribe(
-      (updatedFreelancers) => {
+    ).subscribe({
+      next: (updatedFreelancers) => {
         this.freelancers = updatedFreelancers;
         this.filteredFreelancers = updatedFreelancers;
+        this.isLoading = false;
       },
-      (error) => {
+      error: (error) => {
         console.error('Error fetching freelancers:', error);
+        this.isLoading = false;
       }
-    );
+    });
   }
 
   filterFreelancer(text: string) {

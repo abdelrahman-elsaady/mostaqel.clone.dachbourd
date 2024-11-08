@@ -159,11 +159,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
     );
   }
   updateProjectProposalChart() {
-    this.projectProposalChartData.datasets[0].data = [
-      this.statistics.projects,
-      this.statistics.proposals
-    ];
-    this.projectProposalChart.update();
+    const projects = this.statistics.projects;
+    const proposals = this.statistics.proposals;
+
+    if (this.projectProposalChart) {
+      this.projectProposalChart.data.labels = [`Projects (${projects})`, `Proposals (${proposals})`];
+      this.projectProposalChart.data.datasets[0].data = [projects, proposals];
+      this.projectProposalChart.update();
+    }
   }
   fetchSkills() {
     this.skillsService.getSkills().subscribe(
@@ -184,10 +187,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   updateUserChart() {
-    this.userChartData.datasets[0].data = [
-      this.statistics.freelancers,
-      this.statistics.clients
-    ];
-    this.userChart.update();
+    const freelancers = this.statistics.freelancers;
+    const clients = this.statistics.clients;
+    
+    if (this.userChart) {
+      this.userChart.data.labels = [`Freelancers (${freelancers})`, `Clients (${clients})`];
+      this.userChart.data.datasets[0].data = [freelancers, clients];
+      this.userChart.update();
+    }
   }
 }

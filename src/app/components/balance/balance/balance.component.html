@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="mt-4">Platform Earnings</h1>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="earnings">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h3 class="card-title">Total Balance: ${{earnings.totalEarnings}}</h3>
+          <button 
+            class="btn btn-primary" 
+            [disabled]="!earnings.totalEarnings || isProcessing"
+            (click)="transferToPayPal()">
+            <i class="fab fa-paypal me-2"></i>
+            Transfer to PayPal
+          </button>
+        </div>
+        
+        <div class="card-body table-responsive p-0">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>Amount</th>
+                <th>Client</th>
+                <th>Freelancer</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let transaction of earnings.transactions">
+                <td>{{transaction.projectId?.title}}</td>
+                <td>${{transaction.amount}}</td>
+                <td>
+                  {{transaction.senderId?.firstName}} {{transaction.senderId?.lastName}}
+                </td>
+                <td>
+                  {{transaction.receiverId?.firstName}} {{transaction.receiverId?.lastName}}
+                </td>
+                <td>{{transaction.timestamp | date:'medium'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
