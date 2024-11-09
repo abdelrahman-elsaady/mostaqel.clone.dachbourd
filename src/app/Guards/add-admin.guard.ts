@@ -22,7 +22,7 @@ export const addAdminGuard: CanActivateFn = (route, state) => {
         title: 'Access Denied',
         icon: 'error',
       }).fire();
-      router.navigate(['/users']);
+      router.navigate(['/login']);
       guardValue = false;
     }
   }

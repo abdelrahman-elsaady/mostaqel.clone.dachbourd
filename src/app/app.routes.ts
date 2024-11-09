@@ -15,7 +15,7 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { HomeComponent } from './components/home/home.component';
 import { AddAdminComponent } from './components/add-admin/add-admin.component';
 import { BalanceComponent } from './components/balance/balance/balance.component';
-
+import { NotFoundComponent } from './components/notfound/notfound.component';
 export const routes: Routes = [
 
   {path:'', component:  HomeComponent,canActivate: [authMiddlewareGuard]},
@@ -31,6 +31,7 @@ export const routes: Routes = [
   {path:'skills/update', component: EditSkillComponent },
   {path:'add-admin', component: AddAdminComponent ,canActivate: [authMiddlewareGuard]},
   {path:'balance', component: BalanceComponent ,canActivate: [authMiddlewareGuard]},
+  {path:'**', component: NotFoundComponent},
   // {path:'home', component: HeaderComponent },
   // {path:'Products', component: ProductParentsComponent,canActivate: [userGuard]},
   // {path:'ProductParents', component: ProductParentsComponent,canActivate: [userGuard]},

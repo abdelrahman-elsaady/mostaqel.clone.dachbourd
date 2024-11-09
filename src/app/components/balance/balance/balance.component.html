@@ -9,13 +9,19 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <h3 class="card-title">Total Balance: ${{earnings.totalEarnings}}</h3>
+          <h3 class="card-title">
+            Total Balance: 
+            <span class="fs-2 fw-bold text-success">
+              ${{earnings.totalEarnings | number:'1.2-2'}}
+            </span>
+          </h3>
           <button 
             class="btn btn-primary" 
             [disabled]="!earnings.totalEarnings || isProcessing"
             (click)="transferToPayPal()">
             <i class="fab fa-paypal me-2"></i>
-            Transfer to PayPal
+            <span *ngIf="!isProcessing">Transfer to PayPal</span>
+            <span *ngIf="isProcessing">Processing...</span>
           </button>
         </div>
         
@@ -44,6 +50,18 @@
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Single PayPal button container at the bottom -->
+  <div class="row mt-3" *ngIf="showPaypalButtons">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Complete PayPal Transfer</h5>
+          <div id="paypal-button-container"></div>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { CategoriesComponent } from '../categories.component';
 import { CategoriesService } from '../../../Services/categories.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-update-category',
@@ -30,9 +31,23 @@ export class UpdateCategoryComponent implements OnInit {
     this.dialogRef.close();
   }
   save() {
-    this.categoryService.updateCategory(this.category).subscribe((result) => {
-      console.log(result);
+    this.categoryService.updateCategory(this.category).subscribe({
+      next: (result) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Category updated successfully!',
+          timer: 1500
+        });
+        this.close();
+      },
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to update category. Please try again.'
+        });
+      }
     });
-    this.close();
   }
 }

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -39,4 +40,32 @@ export class AuthService {
     // Here We Used Behaviour Subject as Observable that can be subscribed
     return this.UserAuthBehavior.asObservable();
   }
+
+  // getCurrentUserEmail(): string {
+  //   return localStorage.getItem('userEmail') || '';
+  // }
+
+  getCurrentUser(): any {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      try {
+        return jwtDecode(token);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        return null;
+      }
+    }
+    return null;
+  }
+
+  getCurrentUserId(): string | null {
+    const user = this.getCurrentUser();
+    return user?.id || null;
+  }
+
+  getCurrentUserEmail(): string | null {
+    const user = this.getCurrentUser();
+    return user?.email || null;
+  }
+  
 }

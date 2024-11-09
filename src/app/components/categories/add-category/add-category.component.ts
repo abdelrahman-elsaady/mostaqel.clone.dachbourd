@@ -4,6 +4,7 @@ import { CategoriesComponent } from '../categories.component';
 import { CategoriesService } from '../../../Services/categories.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-category',
@@ -39,11 +40,23 @@ export class AddCategoryComponent implements OnInit {
     this.dialogRef.close();
   }
   save() {
-    this.categoryService
-      .addNewCategory(this.newCategory)
-      .subscribe((result) => {
-        console.log(result);
-      });
-    this.close();
+    this.categoryService.addNewCategory(this.newCategory).subscribe({
+      next: (result) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Category added successfully!',
+          timer: 1500
+        });
+        this.close();
+      },
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to add category. Please try again.'
+        });
+      }
+    });
   }
 }
