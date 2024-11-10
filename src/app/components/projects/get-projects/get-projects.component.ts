@@ -42,7 +42,7 @@ export class GetProjectsComponent  implements  OnInit {
   }
 
   deactiveProject(id: string, currentStatus: string) {
-    const newStatus = currentStatus === 'open' ? 'close' : 'open';
+    const newStatus = currentStatus === 'open' ? 'closed' : 'open';
     console.log(newStatus)
     this.ProService.deactivateProject(id, newStatus).subscribe((updatedProject: any) => {
       const projectIndex = this.data.findIndex((pr: any) => pr._id === updatedProject._id);
