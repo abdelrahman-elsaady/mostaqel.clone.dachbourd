@@ -67,10 +67,8 @@ export class GetProjectsComponent  implements  OnInit {
                 timer: 2000,
                 showConfirmButton: false
               }).then(() => {
-                // Refresh the page after the success message
-                this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-                  this.router.navigate(['/projects/Get']);
-                });
+                // Use window.location.reload() to refresh the page
+                window.location.reload();
               });
             }
           },
