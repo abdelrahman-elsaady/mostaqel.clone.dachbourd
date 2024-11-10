@@ -66,6 +66,11 @@ export class GetProjectsComponent  implements  OnInit {
                 text: `Project status has been changed to ${newStatus}`,
                 timer: 2000,
                 showConfirmButton: false
+              }).then(() => {
+                // Refresh the page after the success message
+                this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+                  this.router.navigate(['/projects/Get']);
+                });
               });
             }
           },
