@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProjectsService } from '../../../Services/projects.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-get-projects',
@@ -48,6 +49,13 @@ export class GetProjectsComponent  implements  OnInit {
       const projectIndex = this.data.findIndex((pr: any) => pr._id === updatedProject._id);
       if (projectIndex !== -1) {
         this.data[projectIndex].status = updatedProject.status;
+        Swal.fire({
+          icon: 'success',
+          title: 'Status Updated!',
+          text: `Project status has been changed to ${newStatus}`,
+          timer: 2000,
+          showConfirmButton: false
+        });
       }
     });
 
