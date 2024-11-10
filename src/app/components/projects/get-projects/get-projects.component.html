@@ -60,7 +60,7 @@
                   <td>
                     <div class="d-flex">
                       
-                      <button class="btn" [ngClass]="project.status =='close' ?  'text-danger' : 'text-success'"
+                      <button class="btn" [ngClass]="project.status =='closed' ?  'text-danger' : 'text-success'"
                       (click)="deactiveProject(project._id, project.status)">
                       <i class="fa-solid fa-trash"></i> {{ project.status == 'open' ? 'deactive' : 'active' }}
                     </button>
