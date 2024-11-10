@@ -43,42 +43,43 @@ export class GetProjectsComponent  implements  OnInit {
   }
 
   deactiveProject(id: string, currentStatus: string) {
-    const newStatus = currentStatus === 'open' ? 'closed' : 'open';
-    console.log(newStatus)
-    this.ProService.deactivateProject(id, newStatus).subscribe({
-      next: (updatedProject: any) => {
-        const projectIndex = this.data.findIndex((pr: any) => pr._id === updatedProject._id);
-        if (projectIndex !== -1) {
-          this.data[projectIndex].status = updatedProject.status;
-          // Add try-catch to see if there's an error
-          try {
+    // Show confirmation dialog first
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `Do you want to change the project status to ${currentStatus === 'open' ? 'closed' : 'open'}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, change it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const newStatus = currentStatus === 'open' ? 'closed' : 'open';
+        this.ProService.deactivateProject(id, newStatus).subscribe({
+          next: (updatedProject: any) => {
+            const projectIndex = this.data.findIndex((pr: any) => pr._id === updatedProject._id);
+            if (projectIndex !== -1) {
+              this.data[projectIndex].status = updatedProject.status;
+              Swal.fire({
+                icon: 'success',
+                title: 'Status Updated!',
+                text: `Project status has been changed to ${newStatus}`,
+                timer: 2000,
+                showConfirmButton: false
+              });
+            }
+          },
+          error: (error) => {
+            console.error('API error:', error);
             Swal.fire({
-              icon: 'success',
-              title: 'Status Updated!',
-              text: `Project status has been changed to ${newStatus}`,
-              timer: 2000,
-              showConfirmButton: false
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!'
             });
-          } catch (error) {
-            console.error('SweetAlert2 error:', error);
           }
-        }
-      },
-      error: (error) => {
-        console.error('API error:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong!'
         });
       }
     });
-
-
-    // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-    //   this.router.navigate(['/projects/Get'])
-    // })
-
   }
 
   p:number = 1;
