@@ -3,27 +3,13 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "target": "es5",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
-    "types": [
-      "node",
-      "jasmine"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "outDir": "./out-tsc/app",
+    "types": []
   },
-  "include": [
-    "src/**/*.spec.ts",
-    "src/**/*.d.ts"
+  "files": [
+    "src/main.ts"
   ],
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false
-  }
+  "include": [
+    "src/**/*.d.ts"
+  ]
 }
