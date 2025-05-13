@@ -42,4 +42,4 @@ This project is an Angular application that includes various components, service
 ## Additional Information
 - The application uses Angular for the frontend.
 - PayPal integration is included for payment processing.
-- The project includes various components for managing users, projects, skills, and categories.
+- The project includes various components for managing users, projects, skills, and categories..
